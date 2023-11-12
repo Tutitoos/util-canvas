@@ -1,0 +1,20 @@
+{
+  "name": "util-canvas",
+  "version": "1.2.1",
+  "description": "A fork of util-canvas with Discord emoji support.",
+  "main": "src/index.js",
+  "types": "src/index.d.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "tutitoos",
+  "dependencies": {
+    "@napi-rs/canvas": "0.1.44",
+    "twemoji": "13.0.1"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tutitoos/util-canvas.git"
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "name": "util-canvas-sample",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "tutitoos",
+  "license": "MIT",
+  "dependencies": {
+    "express": "4.17.1",
+    "urlsafe-base64": "1.0.0",
+    "@napi-rs/canvas": "0.1.44"
+  }
+}
