@@ -9,8 +9,11 @@
   "author": "tutitoos",
   "license": "MIT",
   "dependencies": {
+    "@napi-rs/canvas": "0.1.44",
     "express": "4.17.1",
-    "urlsafe-base64": "1.0.0",
-    "@napi-rs/canvas": "0.1.44"
+    "urlsafe-base64": "1.0.0"
+  },
+  "devDependencies": {
+    "@types/twemoji": "^13.1.1"
   }
 }

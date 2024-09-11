@@ -1,4 +1,4 @@
-import {SKRSContext2D } from "@napi-rs/canvas";
+import type {SKRSContext2D } from "@napi-rs/canvas";
 
 declare module "util-canvas" {
 	export interface DrawOptions {
@@ -6,7 +6,7 @@ declare module "util-canvas" {
 		emojiSideMarginPercent?: number;
 		emojiTopMarginPercent?: number;
 	}
-	
+
 	export function fillTextWithTwemoji(
 		context: SKRSContext2D,
 		text: string,
@@ -14,7 +14,7 @@ declare module "util-canvas" {
 		y: number,
 		options?: DrawOptions
 	): Promise<void>;
-	
+
 	export function strokeTextWithTwemoji(
 		context: SKRSContext2D,
 		text: string,
@@ -22,7 +22,7 @@ declare module "util-canvas" {
 		y: number,
 		options?: DrawOptions
 	): Promise<void>;
-	
+
 	export function measureText(
 		context: SKRSContext2D,
 		text: string,

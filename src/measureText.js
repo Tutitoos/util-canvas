@@ -15,8 +15,8 @@ module.exports = function measureText (
 
   let currentWidth = 0;
 
-  for (let i = 0; i < textEntities.length; i++) {
-    const entity = textEntities[i];
+  for (const element of textEntities) {
+    const entity = element;
     if (typeof entity === 'string') {
       // Common text case
       currentWidth += context.measureText(entity).width;

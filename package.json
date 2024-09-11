@@ -9,8 +9,8 @@
   },
   "author": "tutitoos",
   "dependencies": {
-    "@napi-rs/canvas": "0.1.44",
-    "twemoji": "13.0.1"
+    "@napi-rs/canvas": "0.1.55",
+    "twemoji": "14.0.2"
   },
   "license": "MIT",
   "repository": {
