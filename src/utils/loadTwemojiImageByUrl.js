@@ -1,28 +1,36 @@
 const { loadImage, Image } = require('@napi-rs/canvas');
 
-const cachedTwemojiImages = new Map();
+const cacheImages = new Map();
 
-module.exports =  async function loadTwemojiImageByUrl (url) {
+/**
+ * @description Loads a Twemoji image by URL. If the image was already
+ *              loaded, it returns the cached one.
+ * @param {string} url The URL of the Twemoji image.
+ * @returns {Promise<Image>} A promise with the loaded image.
+ * @throws {Error} If the image wasn't loaded successfully.
+ */
+module.exports =  async function loadTwemojiImageByUrl(url) {
   // biome-ignore lint/suspicious/noAsyncPromiseExecutor: <explanation>
-  return new Promise(async (res, rej) => {
+  return new Promise(async (resolve, reject) => {
     try {
-        if (cachedTwemojiImages.has(url)) {
-          return res(cachedTwemojiImages.get(url));
+        if (cacheImages.has(url)) {
+          return resolve(cacheImages.get(url));
         }
 
         const image = await loadImage(url);
-        if (image instanceof Image) {
-          if (!url.includes("discord")) {
-            cachedTwemojiImages.set(url, image);
-          }
-
-          return res(image);
+        if (!image) {
+         throw new Error(`Image not loaded from ${url}`)
         }
 
-        rej(new Error("La URL no devolvió una instancia de Image válida."));
+        if (!(image instanceof Image)) {
+          throw new Error(`Loaded object is not an instance of Image from ${url}`)
+        }
+
+        if (!url.includes("discord")) cacheImages.set(url, image);
+
+        resolve(image);
     } catch (error) {
-        console.error("Error al cargar la imagen: ", error);
-        rej(error); // Rechaza la promesa en caso de error
+        reject(error);
     }
   });
 }

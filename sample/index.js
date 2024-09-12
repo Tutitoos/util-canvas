@@ -45,4 +45,4 @@ app.get('/', async (req, res) => {
   return res.send(image);
 });
 
-app.listen('4002');
+app.listen('4002', () => console.log('Example app listening on port http://localhost:4002'));

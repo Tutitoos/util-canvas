@@ -1,6 +1,16 @@
 const defaultHeight = 16;
 
-// Get font size by cssFont and Return size in px.
+
+/**
+ * @function
+ * @param {string} cssFont - CSS font style.
+ * @returns {number} - The font size in pixels.
+ * @description
+ * Returns the font size in pixels from a given CSS font style.
+ * If the CSS font style does not contain a valid font size, it returns 16.
+ * Supported unit: px, pt, pc, in, cm, mm, %, em, rem, q.
+ * The conversion factor is based on the MDN documentation.
+ */
 module.exports = function getFontSizeByCssFont (cssFont) {
   if (typeof cssFont !== 'string') {
     return defaultHeight;

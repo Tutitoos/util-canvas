@@ -1,4 +1,4 @@
-const { parse } = require('twemoji');
+const { parse: parseTwemoji } = require('twemoji-parser');
 
 /*
  * Split Text
@@ -9,6 +9,13 @@ const { parse } = require('twemoji');
 
 const discordEmojiPattern = "<a?:\\w+:(\\d{17,19})>";
 
+/**
+ * Parses Discord emojis from a given array of text entities.
+ *
+ * @param {Array<string|{url: string}>} textEntities - Array of text entities.
+ * @returns {Array<string|{url: string}>} The array of text entities with Discord
+ * emojis parsed.
+ */
 function parseDiscordEmojis(textEntities) {
   const newTextEntities = [];
 
@@ -25,46 +32,27 @@ function parseDiscordEmojis(textEntities) {
   return newTextEntities;
 }
 
+/**
+ * Splits a text into an array of strings and Twemoji objects.
+ *
+ * @param {string} text The text to split.
+ * @returns {Array<string|{url: string}>} The array of strings and Twemoji objects.
+ */
 module.exports = function splitEntitiesFromText(text) {
-  const twemojiEntities = parse(text, (iconId) => `https://jdecked.github.io/twemoji/v/latest/72x72/${iconId}.png`);
-  const emojis = twemojiEntities?.split('src="').map((e) => e.split('"/>')[0]).filter(e => e.includes('twemoji'));
-
-  let count = 0;
-  let newText = twemojiEntities;
-  while (true) {
-    if (!newText.includes("<img")) break;
-
-    const index1 = newText.indexOf('<img');
-    const index2 = newText.indexOf('/>');
-    if (index1 === -1 || index2 === -1) break;
-
-    const removeText = newText.slice(index1,  index2 + 2);
-
-    newText = newText.replace(removeText, `{${count}}`);
-    count++;
-  }
-
-  const list = [];
-
-  for (let i = 0; i < emojis.length; i++) {
-    const emoji = emojis[i];
-
-    const index = newText.indexOf(`{${i}}`);
-
-    list.push({
-      url: emoji,
-      indices: [index - 1, index + 1],
-    });
-  }
+  const twemojiEntities = parseTwemoji(text, {
+    assetType: "png",
+  });
 
   let unparsedText = text;
   let lastTwemojiIndice = 0;
   const textEntities = [];
 
-  for (const twemoji of list) {
+  for (const twemoji of twemojiEntities) {
     textEntities.push(
       unparsedText.slice(0, twemoji.indices[0] - lastTwemojiIndice)
     );
+
+    twemoji.url =  twemoji.url.replace("https://twemoji.maxcdn.com/", "https://jdecked.github.io/twemoji/");
 
     textEntities.push(twemoji);
 

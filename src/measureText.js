@@ -1,6 +1,17 @@
 const splitEntitiesFromText = require('./utils/splitEntitiesFromText');
 const getFontSizeByCssFont = require('./utils/getFontSizeByCssFont');
 
+/**
+ * Measures the width of a given text with emojis on a canvas context.
+ *
+ * @param {SKRSContext2D} context - The canvas context to measure on.
+ * @param {string} text - The text to measure, can include emojis in the form of
+ *   `<a?:emoji_name:emoji_id>`.
+ * @param {Object} [options] - Optional options.
+ * @param {number} [options.emojiSideMarginPercent] - The percentage of the font
+ *   size to use as the side margin for emojis. Defaults to 10%.
+ * @returns {Object} - An object with `width` and `alphabeticBaseline` properties.
+ */
 module.exports = function measureText (
   context,
   text,

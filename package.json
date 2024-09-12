@@ -10,7 +10,8 @@
   "author": "tutitoos",
   "dependencies": {
     "@napi-rs/canvas": "0.1.55",
-    "twemoji": "14.0.2"
+    "canvas": "^2.11.2",
+    "twemoji-parser": "14.0.0"
   },
   "license": "MIT",
   "repository": {
